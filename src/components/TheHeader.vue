@@ -1,7 +1,7 @@
 <template>
     <header>
         <nav>
-            <h1><router-link to="/">hSenid LMS - Manager</router-link> </h1>
+            <h1><router-link to="/">{{topic}}</router-link> </h1>
             <ul>
                 <li><router-link to="/">Hi User</router-link></li>
                 <li><router-link to="/logout">Logout</router-link></li>
@@ -11,7 +11,18 @@
 </template>
 
 <script>
-export default {};
+import { ref } from "vue";
+export default {
+  
+  props:['pageTopic'],
+  setup(props){
+    const topic = ref(props.pageTopic);
+
+    return{
+      topic,
+    }
+  }
+};
 </script>
 
 
