@@ -1,9 +1,15 @@
 import { createRouter, createWebHistory } from "vue-router";
 
 import EmployeesList from "./pages/managers/EmployeesList.vue";
-import EmployeeDetails from "./pages/managers/EmployeeDetails.vue";
 import EmployeeRegistration from "./pages/managers/EmployeeRegistration.vue";
+import LoginPage from './pages/auth/LoginPage.vue';
 import NotFound from "./pages/NotFound.vue";
+import LeaveRequests from "./pages/managers/LeaveRequests.vue";
+import EmployeeLeaveHistory from "./pages/employees/EmployeeLeaveHistory.vue";
+import LeaveBalance from "./pages/employees/LeaveBalance.vue";
+import AddLeave from "./pages/employees/AddLeave.vue";
+
+
 
 
 const router = createRouter({
@@ -13,11 +19,13 @@ const router = createRouter({
         { path: '/', redirect: '/employees' },
         { path: '/logout', component: null },
         { path: '/employees', component: EmployeesList},
-        { path: '/employees/:id', component: EmployeeDetails },
         { path: '/register', component: EmployeeRegistration },
-        { path: '/requests', component: null },
-        { path: '/:notFound(.*)', component: NotFound }
-
+        { path: '/requests', component: LeaveRequests },
+        { path: '/login', component: LoginPage },
+        { path: '/leavehistory', component: EmployeeLeaveHistory },
+        { path: '/leavebalance', component: LeaveBalance },
+        { path: '/addleave', component: AddLeave },
+        { path: '/:notFound(.*)', component: NotFound },
 
     ]
 
