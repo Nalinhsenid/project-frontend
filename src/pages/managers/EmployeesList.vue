@@ -33,29 +33,14 @@
             </b-tr>
           </b-thead>
           <b-tbody>
-            <b-tr>
-              <b-th sticky-column class="align-middle text-center">01</b-th>
-              <b-td class="align-middle text-center">H01</b-td>
-              <b-td class="align-middle text-center">Nalin</b-td>
-              <b-td class="align-middle text-center">SE</b-td>
+            <b-tr v-for="employee in employeeData" :key = employee.num>
+              <b-th sticky-column class="align-middle text-center">{{ employee.num }}</b-th>
+              <b-td class="align-middle text-center">{{employee.employeeId}}</b-td>
+              <b-td class="align-middle text-center">{{ employee.employeeName }}</b-td>
+              <b-td class="align-middle text-center">{{employee.employeePosition}}</b-td>
               <b-td class="align-middle text-center">
                 <div class="mt-3 text-center ">
                   <b-button-group class="crud-operation-btn">
-                    <b-button variant="success">View</b-button>
-                    <b-button variant="info">Edit</b-button>
-                    <b-button variant="warning">Delete</b-button>
-                  </b-button-group>
-                </div>
-              </b-td>
-            </b-tr>
-            <b-tr>
-              <b-th sticky-column class="align-middle text-center">02</b-th>
-              <b-td class="align-middle text-center">H02</b-td>
-              <b-td class="align-middle text-center">Nalin2</b-td>
-              <b-td class="align-middle text-center">SE</b-td>
-              <b-td class="align-middle text-center">
-                <div class="mt-3 text-center">
-                  <b-button-group class="crud-operation-btn ">
                     <b-button variant="success">View</b-button>
                     <b-button variant="info">Edit</b-button>
                     <b-button variant="warning">Delete</b-button>
@@ -80,10 +65,25 @@ export default {
     TheHeader
   },
   setup(){
+    const employeeData = ref([
+      {
+        num: 1,
+        employeeId: 'H01',
+        employeeName: 'Nalin',
+        employeePosition: 'Software Engineer'
+      },
+      {
+        num: 2,
+        employeeId: 'H02',
+        employeeName: 'Danula',
+        employeePosition: 'Software Engineer'
+      }
+    ])
     const pageTopic = ref("hSenid LMS - Manager");
 
     return{
       pageTopic,
+      employeeData
     }
   }
 

@@ -1,12 +1,10 @@
-import {  createStore} from "vuex";
-
-import EmployeesModule  from "./modules/Employees/index.js";
-
+import { createStore } from "vuex";
+import { auth } from "./auth.module";
 
 const store = createStore({
     modules: {
-        employees:EmployeesModule
-    }
+        auth,
+    },
 });
 
 export default store;
