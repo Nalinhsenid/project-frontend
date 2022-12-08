@@ -4,7 +4,7 @@ import router from './router';
 import store from "./store/index.js";
 import App from './App.vue';
 import BootstrapVue3 from 'bootstrap-vue-3'
-// import store from './store'
+
 
 
 import 'bootstrap/dist/css/bootstrap.css'
