@@ -1,7 +1,7 @@
 <template>
   <the-header :pageTopic ="pageTopic"></the-header>
   <section>
-    <b-container class="bv-example-row my-5">
+    <b-container class="bv-example-row my-5" v-if="isRoleAdmin === true">
       <b-row class="justify-content-center mt-3">
 
         <b-col col lg="2">
@@ -19,8 +19,33 @@
         >
       </b-row>
     </b-container>
+    <b-container class="bv-example-row my-5" v-if="isRoleAdmin === false">
+      <b-row class="justify-content-center mt-3">
+        <b-col col lg="2">
+          <b-button pill variant="outline-danger"
+          ><router-link to="/leavehistory" class="text-decoration-none"
+          >Leave History</router-link
+          ></b-button
+          >
+        </b-col>
+        <b-col col lg="2"
+        ><b-button pill variant="outline-danger"
+        ><router-link to="/leavebalance" class="text-decoration-none"
+        >Leave Balance</router-link
+        >
+        </b-button></b-col
+        >
+        <b-col col lg="2"
+        ><b-button pill variant="outline-danger"
+        ><router-link to="/addleave" class="text-decoration-none"
+        >Request a leave</router-link
+        >
+        </b-button></b-col
+        >
+      </b-row>
+    </b-container>
   </section>
-  <div class="h2 text-center">Profile content</div>
+  <div class="h2 text-center">Hi {{currentUser.username.toUpperCase()}}</div>
   <div class="container">
     <header class="jumbotron">
       <h3>
@@ -63,11 +88,17 @@ export default {
     if (!this.currentUser) {
       this.$router.push('/login');
     }
+    if(this.currentUser.roles[0] === 'ROLE_ADMIN'){
+      this.isRoleAdmin = true;
+    }
   },
   setup(){
     const pageTopic = ref("Profile");
+    const isRoleAdmin = ref(false)
+
     return{
-      pageTopic
+      pageTopic,
+      isRoleAdmin
     }
   }
 

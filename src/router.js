@@ -15,8 +15,6 @@ import ProfilePage from "@/pages/ProfilePage";
 
 const router = createRouter({
     history: createWebHistory(),
-
-
     routes: [
         { path: '/', redirect: '/login' },
         { path: '/login', component: LoginPage },
@@ -28,16 +26,12 @@ const router = createRouter({
         { path: '/employees',
             component: EmployeesList,
             children: [
-
                 {path:'/:id',component: null},
             ]
         },
         { path: '/leavehistory', component: EmployeeLeaveHistory },
         { path: '/leavebalance', component: LeaveBalance },
         { path: '/addleave', component: AddLeave },
-
-
-
         { path: '/:notFound(.*)', component: NotFound },
 
     ]

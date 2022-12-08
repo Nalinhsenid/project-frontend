@@ -33,17 +33,16 @@
             </b-tr>
           </b-thead>
           <b-tbody>
-            <b-tr v-for="employee in employeeData" :key = employee.num>
-              <b-th sticky-column class="align-middle text-center">{{ employee.num }}</b-th>
-              <b-td class="align-middle text-center">{{employee.employeeId}}</b-td>
-              <b-td class="align-middle text-center">{{ employee.employeeName }}</b-td>
-              <b-td class="align-middle text-center">{{employee.employeePosition}}</b-td>
+            <b-tr v-for="employee in employeeData" :key = employee.id>
+              <b-th sticky-column class="align-middle text-center">{{ employee.id }}</b-th>
+              <b-td class="align-middle text-center">{{employee.id}}</b-td>
+              <b-td class="align-middle text-center">{{ employee.name }}</b-td>
+              <b-td class="align-middle text-center">{{employee.position}}</b-td>
               <b-td class="align-middle text-center">
                 <div class="mt-3 text-center ">
                   <b-button-group class="crud-operation-btn">
-                    <b-button variant="success">View</b-button>
                     <b-button variant="info">Edit</b-button>
-                    <b-button variant="warning">Delete</b-button>
+                    <b-button variant="warning" @click="deleteEmployee">Delete</b-button>
                   </b-button-group>
                 </div>
               </b-td>
@@ -56,35 +55,50 @@
 </template>
   
 <script>
-import { ref } from "vue";
+import { ref , onMounted} from "vue";
 import TheHeader from "@/components/TheHeader.vue";
+import employeeService from "@/services/employee.service";
 
 
 export default {
-  components: {
-    TheHeader
-  },
   setup(){
-    const employeeData = ref([
-      {
-        num: 1,
-        employeeId: 'H01',
-        employeeName: 'Nalin',
-        employeePosition: 'Software Engineer'
-      },
-      {
-        num: 2,
-        employeeId: 'H02',
-        employeeName: 'Danula',
-        employeePosition: 'Software Engineer'
-      }
-    ])
-    const pageTopic = ref("hSenid LMS - Manager");
+
+    const employeeData = ref([])
+    const pageTopic = ref("hSenid LMS");
+
+
+    onMounted( ()=>{
+      getEmployees();
+    })
+    const getEmployees = ()=>{
+      employeeService.getALlEmployees().then( response => {
+        employeeData.value = response.data;
+        console.log(employeeData.value)
+      }).catch( error =>{
+        console.log(error);
+      })
+    }
+
+    // const deleteEmployee =() => {
+    //   employeeService.deleteEmployee($ref(key))
+    //       .then( res => {
+    //         console.log(res.data)
+    //       })
+    //       .catch( e => {
+    //         console.log(e)
+    //       })
+    // }
+
 
     return{
       pageTopic,
-      employeeData
+      employeeData,
+      getEmployees,
+      // deleteEmployee
     }
+  },
+  components: {
+    TheHeader
   }
 
 };
