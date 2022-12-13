@@ -81,14 +81,14 @@ export default {
           () => {
             this.$router.push("/profile");
           },
-          (error) => {
+          () => {
             this.loading = false;
-            this.message =
-                (error.response &&
-                    error.response.data &&
-                    error.response.data.message) ||
-                error.message ||
-                error.toString();
+            this.message = "Username and password are not matched"
+                // (error.response &&
+                //     error.response.data &&
+                //     error.response.data.message) ||
+                // error.message ||
+                // error.toString();
           }
       );
     },

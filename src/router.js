@@ -29,7 +29,7 @@ const router = createRouter({
                 {path:'/:id',component: null},
             ]
         },
-        { path: '/leavehistory', component: EmployeeLeaveHistory },
+        { path: '/leavehistory/:id', component: EmployeeLeaveHistory },
         { path: '/leavebalance', component: LeaveBalance },
         { path: '/addleave', component: AddLeave },
         { path: '/:notFound(.*)', component: NotFound },

@@ -19,9 +19,9 @@
     </b-row>
   </b-container>
   <div class="h2 text-center my-4">Add Employee</div>
-  <b-card>
+  <div class="container card w-25 p-3">
     <form @submit.prevent = "addEmployee">
-      <div class="container col-md-4 my-5 form">
+      <div class="">
         <div role="group" class="my-4">
           <label for="input-live">Employee Id:</label>
           <b-form-input
@@ -82,7 +82,7 @@
       </div>
 
     </form>
-  </b-card>
+  </div>
 
 </template>
   
@@ -140,7 +140,8 @@ export default {
       employeeId,
       employeeIdState,
       employeePosition,
-      addEmployee
+      addEmployee,
+      employeeEmail
     };
   },
 };

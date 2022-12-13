@@ -6,10 +6,16 @@ class EmployeeService {
     getALlEmployees() {
         return httpCommon.get('/employees',{ headers: authHeader() });
     }
+    getALlLeaveRequests() {
+        return httpCommon.get('/leaves',{ headers: authHeader() });
+    }
+    getALlLeaveRequestsOfEmployee(id){
+        return httpCommon.get(`/leaves/${id}`,{ headers: authHeader() });
+    }
 
     createEmployee(data) {
         return httpCommon.post(
-            "/register",
+            "/employees",
             data,
             { headers: authHeader()});
     }

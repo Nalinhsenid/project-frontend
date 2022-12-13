@@ -5,7 +5,7 @@
       <b-row class="justify-content-center mt-3">
         <b-col col lg="2">
           <b-button pill variant="outline-danger">
-            <router-link to="/leavehistory" class="text-decoration-none">Leave History</router-link>
+            <router-link to="/leavehistory/H06" class="text-decoration-none">Leave History</router-link>
           </b-button>
         </b-col>
         <b-col col lg="2">
@@ -26,25 +26,24 @@
         <b-table-simple responsive>
           <b-thead>
             <b-tr>
-              <b-th sticky-column></b-th>
               <b-th class="text-center">Leave Date</b-th>
+              <b-th class="text-center">Full Day or Half Day</b-th>
               <b-th class="text-center">Leave type</b-th>
               <b-th class="text-center">Description</b-th>
-              <b-th class="text-center"></b-th>
             </b-tr>
           </b-thead>
           <b-tbody>
             <b-tr>
-              <b-th sticky-column class="align-middle text-center">01</b-th>
               <b-td class="align-middle text-center">16-09-2022</b-td>
+              <b-td class="align-middle text-center">Full Day</b-td>
               <b-td class="align-middle text-center">Casual</b-td>
               <b-td class="align-middle text-center">Private reason</b-td>
             </b-tr>
             <b-tr>
-              <b-th sticky-column class="align-middle text-center">02</b-th>
-              <b-td class="align-middle text-center">16-06-2022</b-td>
-              <b-td class="align-middle text-center">Sick</b-td>
-              <b-td class="align-middle text-center">Medical</b-td>
+              <b-td class="align-middle text-center">16-09-2022</b-td>
+              <b-td class="align-middle text-center">Full Day</b-td>
+              <b-td class="align-middle text-center">Casual</b-td>
+              <b-td class="align-middle text-center">Private reason</b-td>
             </b-tr>
           </b-tbody>
         </b-table-simple>
@@ -54,8 +53,10 @@
 </template>
 
 <script>
-import {ref} from "vue";
+import {onMounted, ref} from "vue";
 import TheHeader from "@/components/TheHeader.vue";
+import employeeService from "@/services/employee.service";
+import { useRoute } from 'vue-router';
 
 
 export default {
@@ -63,10 +64,26 @@ export default {
     TheHeader
   },
   setup() {
-    const pageTopic = ref("hSenid LMS - Employee");
+    const pageTopic = ref("hSenid LMS");
+    const employeeLeaveBalance =ref([]);
+    const route = useRoute();
+
+
+    onMounted( ()=>{
+      getLeaveRequestsOfEmployee();
+    })
+
+    const getLeaveRequestsOfEmployee = ()=> {
+      employeeService.getALlLeaveRequestsOfEmployee(route.params.id).then(response => {
+        employeeLeaveBalance.value = response.data;
+      }).catch(error => {
+        console.log(error);
+      })
+    }
 
     return {
       pageTopic,
+      employeeLeaveBalance
     }
   }
 
