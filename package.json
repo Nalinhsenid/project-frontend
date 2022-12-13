@@ -10,9 +10,11 @@
   "dependencies": {
     "@popperjs/core": "^2.11.6",
     "axios": "^1.2.0",
-    "bootstrap": "^5.2.2",
+    "bootstrap": "^5.2.3",
+    "bootstrap-vue": "^2.23.1",
     "bootstrap-vue-3": "^0.4.8",
     "core-js": "^3.8.3",
+    "jquery": "^3.6.1",
     "vee-validate": "^4.7.3",
     "vue": "^3.2.13",
     "vue-router": "^4.1.6",

@@ -32,33 +32,21 @@
         <b-table-simple responsive>
           <b-thead>
             <b-tr>
-              <b-th sticky-column></b-th>
               <b-th class="text-center">Employee ID</b-th>
               <b-th class="text-center">Name</b-th>
               <b-th class="text-center">Date</b-th>
+              <b-th class="text-center">Leave Type</b-th>
+              <b-th class="text-center">Leave Amount</b-th>
               <b-th class="text-center"></b-th>
             </b-tr>
           </b-thead>
           <b-tbody>
-            <b-tr>
-              <b-th sticky-column class="align-middle text-center">01</b-th>
-              <b-td class="align-middle text-center">H01</b-td>
+            <b-tr v-for="request in leaveRequests" :key = request.id>
+              <b-td class="align-middle text-center">{{request.employeeId}}</b-td>
               <b-td class="align-middle text-center">Nalin</b-td>
-              <b-td class="align-middle text-center">12-10-2022</b-td>
-              <b-td class="align-middle text-center">
-                <div class="mt-3 text-center">
-                  <b-button-group class="crud-operation-btn">
-                    <b-button variant="success">Accept</b-button>
-                    <b-button variant="danger">Reject</b-button>
-                  </b-button-group>
-                </div>
-              </b-td>
-            </b-tr>
-            <b-tr>
-              <b-th sticky-column class="align-middle text-center">02</b-th>
-              <b-td class="align-middle text-center">H02</b-td>
-              <b-td class="align-middle text-center">Nalin2</b-td>
-              <b-td class="align-middle text-center">12-10-2022</b-td>
+              <b-td class="align-middle text-center">{{request.leaveDate}}</b-td>
+              <b-td class="align-middle text-center">{{request.leaveType}}</b-td>
+              <b-td class="align-middle text-center">{{request.leaveAmount}}</b-td>
               <b-td class="align-middle text-center">
                 <div class="mt-3 text-center">
                   <b-button-group class="crud-operation-btn">
@@ -76,8 +64,9 @@
 </template>
 
 <script>
-import { ref } from "vue";
+import {onMounted, ref} from "vue";
 import TheHeader from "@/components/TheHeader.vue";
+import employeeService from "@/services/employee.service";
 
 export default {
   components: {
@@ -85,9 +74,23 @@ export default {
   },
   setup() {
     const pageTopic = ref("hSenid LMS - Manager");
+    const leaveRequests = ref([]);
 
+    onMounted( ()=>{
+      getLeaveRequests();
+    })
+
+    const getLeaveRequests = ()=> {
+      employeeService.getALlLeaveRequests().then(response => {
+        leaveRequests.value = response.data;
+      }).catch(error => {
+        console.log(error);
+      })
+    }
     return {
       pageTopic,
+      leaveRequests,
+      getLeaveRequests
     };
   },
 };

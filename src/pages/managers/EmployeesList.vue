@@ -25,7 +25,7 @@
         <b-table-simple responsive>
           <b-thead>
             <b-tr>
-              <b-th sticky-column></b-th>
+<!--              <b-th sticky-column></b-th>-->
               <b-th class="text-center">Employee ID</b-th>
               <b-th class="text-center">Name</b-th>
               <b-th class="text-center">Position</b-th>
@@ -34,7 +34,7 @@
           </b-thead>
           <b-tbody>
             <b-tr v-for="employee in employeeData" :key = employee.id>
-              <b-th sticky-column class="align-middle text-center">{{ employee.id }}</b-th>
+<!--              <b-th sticky-column class="align-middle text-center">{{ employee.id }}</b-th>-->
               <b-td class="align-middle text-center">{{employee.id}}</b-td>
               <b-td class="align-middle text-center">{{ employee.name }}</b-td>
               <b-td class="align-middle text-center">{{employee.position}}</b-td>
@@ -63,7 +63,7 @@ import employeeService from "@/services/employee.service";
 export default {
   setup(){
 
-    const employeeData = ref([])
+    const employeeData = ref([]);
     const pageTopic = ref("hSenid LMS");
 
 

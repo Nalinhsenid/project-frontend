@@ -45,29 +45,39 @@
       </b-row>
     </b-container>
   </section>
-  <div class="h2 text-center">Hi {{currentUser.username.toUpperCase()}}</div>
-  <div class="container">
-    <header class="jumbotron">
+  <div class="container" v-if="isRoleAdmin === true">
+    <header class="jumbotron text-center mb-5">
       <h3>
-        <strong>{{currentUser.username}}</strong> Profile
+        <strong>{{currentUser.username.toUpperCase()}}</strong> Profile
       </h3>
     </header>
-    <p>
-      <strong>Token:</strong>
-      {{currentUser.accessToken.substring(0, 20)}} ... {{currentUser.accessToken.substr(currentUser.accessToken.length - 20)}}
+    <p class="text-center mb-5">
+      You are logged as an HR admin of hSenid Software Lanka. You are authorized to perform following tasks
+
     </p>
-    <p>
-      <strong>Id:</strong>
-      {{currentUser.id}}
+    <b-list-group class="w-50 text-center mx-auto">
+      <b-list-group-item href="#" variant="success" class="mb-4">Create employee profiles</b-list-group-item>
+      <b-list-group-item href="#" variant="danger" class="mb-4">View all employees</b-list-group-item>
+      <b-list-group-item href="#" variant="warning" class="mb-4">View all leave requests</b-list-group-item>
+      <b-list-group-item href="#" variant="info" class="mb-4">Accept or reject leave requests</b-list-group-item>
+    </b-list-group>
+  </div>
+  <div class="container" v-if="isRoleAdmin === false">
+    <header class="jumbotron text-center mb-5">
+      <h3>
+        <strong>{{currentUser.username.toUpperCase()}}</strong> Profile
+      </h3>
+    </header>
+    <p class="text-center mb-5">
+      You are logged as an employee of hSenid Software Lanka. You are authorized to perform following tasks
+
     </p>
-    <p>
-      <strong>Email:</strong>
-      {{currentUser.email}}
-    </p>
-    <strong>Authorities:</strong>
-    <ul>
-      <li v-for="role in currentUser.roles" :key="role">{{role}}</li>
-    </ul>
+    <b-list-group class="w-50 text-center mx-auto">
+      <b-list-group-item href="#" variant="success" class="mb-4">Request a leave</b-list-group-item>
+      <b-list-group-item href="#" variant="danger" class="mb-4">View your leave requests</b-list-group-item>
+      <b-list-group-item href="#" variant="warning" class="mb-4">View your leave balance</b-list-group-item>
+      <b-list-group-item href="#" variant="info" class="mb-4">Delete leave requests</b-list-group-item>
+    </b-list-group>
   </div>
 </template>
 
@@ -91,9 +101,11 @@ export default {
     if(this.currentUser.roles[0] === 'ROLE_ADMIN'){
       this.isRoleAdmin = true;
     }
+    console.log(this.currentUser);
+
   },
   setup(){
-    const pageTopic = ref("Profile");
+    const pageTopic = ref("Your Profile");
     const isRoleAdmin = ref(false)
 
     return{
