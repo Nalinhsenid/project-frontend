@@ -1,26 +1,10 @@
 <template>
   <the-header :pageTopic="pageTopic"></the-header>
-  <b-container class="bv-example-row my-5">
-    <b-row class="justify-content-center mt-3">
 
-      <b-col col lg="2">
-        <b-button pill variant="outline-danger"><router-link to="/employees" class="text-decoration-none">All Employees</router-link></b-button>
-      </b-col>
-      <b-col col lg="2"
-      ><b-button pill variant="outline-danger"
-      ><router-link to="/requests" class="text-decoration-none">Requests</router-link> </b-button
-      ></b-col
-      >
-      <b-col col lg="2"
-      ><b-button pill variant="outline-danger"
-      ><router-link to="/register" class="text-decoration-none">Add Employee</router-link> </b-button
-      ></b-col
-      >
-    </b-row>
-  </b-container>
+  <ManagerNavBar></ManagerNavBar>
   <div class="h2 text-center my-4">Add Employee</div>
   <div class="container card w-25 p-3">
-    <form @submit.prevent = "addEmployee">
+    <form @submit.prevent="addEmployee">
       <div class="">
         <div role="group" class="my-4">
           <label for="input-live">Employee Id:</label>
@@ -77,7 +61,7 @@
               trim
           ></b-form-input>
         </div>
-        <b-button block variant="primary" type="submit" >Add Employee</b-button>
+        <b-button block variant="primary" type="submit">Add Employee</b-button>
         <!--      <b-button block class="mx-auto align-items-center justify-content-center" variant="outline-success" type="submit">Add Employee</b-button>-->
       </div>
 
@@ -85,22 +69,24 @@
   </div>
 
 </template>
-  
-  <script>
-import { computed, ref } from "vue";
+
+<script>
+import {computed, ref} from "vue";
 import TheHeader from "@/components/TheHeader.vue";
+import ManagerNavBar from "@/components/ManagerNavBar";
 import employeeService from "@/services/employee.service";
 
 export default {
   components: {
     TheHeader,
+    ManagerNavBar
   },
   setup() {
-    const pageTopic = ref("hSenid LMS - HR Admin");
+    const pageTopic = ref("hSenid LMS");
     const employeeId = ref("");
     const employeeName = ref("");
     const employeePosition = ref("");
-    const employeeEmail =ref('')
+    const employeeEmail = ref('')
     // const dataE =ref({
     //   id: '',
     //   name: '',
@@ -116,7 +102,7 @@ export default {
       return employeeId.value.length == 3 ? true : false;
     });
 
-    const addEmployee = ()=>{
+    const addEmployee = () => {
       let employeeData = {
         id: employeeId.value,
         name: employeeName.value,
@@ -146,6 +132,6 @@ export default {
   },
 };
 </script>
-  
-  <style>
+
+<style>
 </style>

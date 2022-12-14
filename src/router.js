@@ -9,6 +9,7 @@ import EmployeeLeaveHistory from "./pages/employees/EmployeeLeaveHistory.vue";
 import LeaveBalance from "./pages/employees/LeaveBalance.vue";
 import AddLeave from "./pages/employees/AddLeave.vue";
 import ProfilePage from "@/pages/ProfilePage";
+import RegisterPage from "@/pages/auth/RegisterPage";
 
 
 
@@ -18,8 +19,9 @@ const router = createRouter({
     routes: [
         { path: '/', redirect: '/login' },
         { path: '/login', component: LoginPage },
-        { path: '/logout', component: null },
+        { path: '/logout', redirect: '/login' },
 
+        { path: '/signup', component: RegisterPage},
         { path: '/profile', component: ProfilePage},
         { path: '/register', component: EmployeeRegistration },
         { path: '/requests', component: LeaveRequests },
@@ -29,7 +31,7 @@ const router = createRouter({
                 {path:'/:id',component: null},
             ]
         },
-        { path: '/leavehistory/:id', component: EmployeeLeaveHistory },
+        { path: '/leavehistory', component: EmployeeLeaveHistory },
         { path: '/leavebalance', component: LeaveBalance },
         { path: '/addleave', component: AddLeave },
         { path: '/:notFound(.*)', component: NotFound },

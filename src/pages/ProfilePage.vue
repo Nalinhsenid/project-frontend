@@ -1,24 +1,9 @@
 <template>
   <the-header :pageTopic ="pageTopic"></the-header>
   <section>
-    <b-container class="bv-example-row my-5" v-if="isRoleAdmin === true">
-      <b-row class="justify-content-center mt-3">
-
-        <b-col col lg="2">
-          <b-button pill variant="outline-danger"><router-link to="/employees" class="text-decoration-none">All Employees</router-link></b-button>
-        </b-col>
-        <b-col col lg="2"
-        ><b-button pill variant="outline-danger"
-        ><router-link to="/requests" class="text-decoration-none">Requests</router-link> </b-button
-        ></b-col
-        >
-        <b-col col lg="2"
-        ><b-button pill variant="outline-danger"
-        ><router-link to="/register" class="text-decoration-none">Add Employee</router-link> </b-button
-        ></b-col
-        >
-      </b-row>
-    </b-container>
+    <div v-if="isRoleAdmin === true">
+        <ManagerNavBar></ManagerNavBar>
+    </div>
     <b-container class="bv-example-row my-5" v-if="isRoleAdmin === false">
       <b-row class="justify-content-center mt-3">
         <b-col col lg="2">
@@ -84,9 +69,11 @@
 <script>
 import {ref} from "vue";
 import TheHeader from "@/components/TheHeader";
+import ManagerNavBar from "@/components/ManagerNavBar";
 
 export default {
   components: {
+    ManagerNavBar,
     TheHeader
   },
   computed: {

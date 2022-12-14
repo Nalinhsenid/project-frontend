@@ -1,24 +1,8 @@
 <template>
   <the-header :pageTopic ="pageTopic"></the-header>
+  <ManagerNavBar></ManagerNavBar>
+
   <section>
-    <b-container class="bv-example-row my-5">
-      <b-row class="justify-content-center mt-3">
-        
-        <b-col col lg="2">
-          <b-button pill variant="outline-danger"><router-link to="/employees" class="text-decoration-none">All Employees</router-link></b-button>
-        </b-col>
-        <b-col col lg="2"
-          ><b-button pill variant="outline-danger"
-            ><router-link to="/requests" class="text-decoration-none">Requests</router-link> </b-button
-          ></b-col
-        >
-        <b-col col lg="2"
-          ><b-button pill variant="outline-danger"
-            ><router-link to="/register" class="text-decoration-none">Add Employee</router-link> </b-button
-          ></b-col
-        >
-      </b-row>
-    </b-container>
     <div class="h2 text-center">All employees</div>
     <div class="container my-5">
       <div class="employee-list-table">
@@ -41,8 +25,8 @@
               <b-td class="align-middle text-center">
                 <div class="mt-3 text-center ">
                   <b-button-group class="crud-operation-btn">
-                    <b-button variant="info">Edit</b-button>
-                    <b-button variant="warning" @click="deleteEmployee">Delete</b-button>
+                    <a :href="'/employee/' + employee.id" class="btn btn-info">Edit</a>
+                    <a :href="'/employee/' + employee.id" class="btn btn-danger">Delete</a>
                   </b-button-group>
                 </div>
               </b-td>
@@ -58,9 +42,11 @@
 import { ref , onMounted} from "vue";
 import TheHeader from "@/components/TheHeader.vue";
 import employeeService from "@/services/employee.service";
+import ManagerNavBar from "@/components/ManagerNavBar";
 
 
 export default {
+
   setup(){
 
     const employeeData = ref([]);
@@ -79,26 +65,27 @@ export default {
       })
     }
 
-    // const deleteEmployee =() => {
-    //   employeeService.deleteEmployee($ref(key))
-    //       .then( res => {
-    //         console.log(res.data)
-    //       })
-    //       .catch( e => {
-    //         console.log(e)
-    //       })
-    // }
+    const deleteEmployee =() => {
+      employeeService.deleteEmployee()
+          .then( res => {
+            console.log(res.data)
+          })
+          .catch( e => {
+            console.log(e)
+          })
+    }
 
 
     return{
       pageTopic,
       employeeData,
       getEmployees,
-      // deleteEmployee
+      deleteEmployee
     }
   },
   components: {
-    TheHeader
+    TheHeader,
+    ManagerNavBar
   }
 
 };
