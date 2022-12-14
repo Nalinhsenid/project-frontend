@@ -12,6 +12,10 @@ class EmployeeService {
     getALlLeaveRequestsOfEmployee(id){
         return httpCommon.get(`/leaves/${id}`,{ headers: authHeader() });
     }
+    getALlAcceptedLeaveRequestsOfEmployee(id){
+        return httpCommon.get(`/leaves/approved/${id}`,{ headers: authHeader() });
+    }
+
 
     createEmployee(data) {
         return httpCommon.post(
@@ -26,6 +30,13 @@ class EmployeeService {
 
     deleteEmployee(id) {
         return httpCommon.delete(`/employees/${id}`,{ headers: authHeader() });
+    }
+
+    createLeaveRequest(data) {
+        return httpCommon.post(
+            "/leaves",
+            data,
+            { headers: authHeader()});
     }
 
 
