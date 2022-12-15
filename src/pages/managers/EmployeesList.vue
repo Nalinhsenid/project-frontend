@@ -25,7 +25,7 @@
               <b-td class="align-middle text-center">
                 <div class="mt-3 text-center ">
                   <b-button-group class="crud-operation-btn">
-                    <button class="btn btn-info" @click="updateEmployee(employee.id)">Update</button>
+                    <button class="btn btn-info" @click="editEmployee(employee.id)">Update</button>
                     <button class="btn btn-danger" @click="deleteEmployee(employee.id)">Delete</button>
                   </b-button-group>
                 </div>
@@ -43,17 +43,17 @@ import { ref , onMounted} from "vue";
 import TheHeader from "@/components/TheHeader.vue";
 import employeeService from "@/services/employee.service";
 import ManagerNavBar from "@/components/ManagerNavBar";
-// import { useRouter} from "vue-router";
-import EmployeeService from "@/services/employee.service";
+import { useRouter} from "vue-router";
+// import EmployeeService from "@/services/employee.service";
 
 export default {
   setup(){
 
     const employeeData = ref([]);
     const pageTopic = ref("hSenid LMS");
-    const currentEmployee =ref(null);
-    // const route = useRoute();
-    // const router =useRouter();
+    const router =useRouter();
+    // const isConfirmed ='';
+
     onMounted( ()=>{
       getEmployees();
     })
@@ -64,38 +64,40 @@ export default {
         console.log(error);
       })
     }
-    const getEmployee =(id) => {
-      EmployeeService.getEmployee(id)
-          .then(response => {
-            currentEmployee.value= response.data;
-            console.log(response.data);
-          })
-          .catch(e => {
-            console.log(e);
-          });
-    }
-    const updateEmployee =(id) => {
-      getEmployee(id)
-      employeeService.updateEmployee(id,currentEmployee.value)
+    // const confirmDelete =(employeeId) => {
+    //   context.root.$bvModal.msgBoxConfirm('Are you sure?')
+    //       .then(value => {
+    //         isConfirmed.value = value;
+    //         console.log(isConfirmed.value);
+    //         if(isConfirmed.value === true){
+    //           deleteEmployee(employeeId);
+    //         }
+    //
+    //       })
+    //       .catch(err => {
+    //         console.log('error occurred')
+    //         console.log(err)
+    //       })
+    // }
+
+
+    const deleteEmployee =(id) => {
+      employeeService.deleteEmployee(id)
           .then( res => {
+            // router.push('employees');
+            // router.push('/employees');
+
             console.log(res.data)
-            console.log(currentEmployee.value)
           })
           .catch( e => {
             console.log(e)
           })
     }
 
-    const deleteEmployee =(id) => {
-      employeeService.deleteEmployee(id)
-          .then( res => {
-            // router.push('employees');
-            console.log(res.data)
-          })
-          .catch( e => {
-            console.log(e)
-          })
+    const editEmployee = (employeeId) => {
+      router.push('/employees/'+employeeId);
     }
+
 
 
     return{
@@ -103,8 +105,8 @@ export default {
       employeeData,
       getEmployees,
       deleteEmployee,
-      getEmployee,
-      updateEmployee
+      editEmployee,
+      // confirmDelete
     }
   },
   components: {

@@ -17,21 +17,24 @@
             </b-tr>
           </b-thead>
           <b-tbody>
-            <b-tr v-for="request in leaveRequests" :key = request.id>
-              <b-td class="align-middle text-center">{{request.employeeId}}</b-td>
-              <b-td class="align-middle text-center">{{request.employeeName}}</b-td>
-              <b-td class="align-middle text-center">{{request.leaveDate.substr(0,10)}}</b-td>
-              <b-td class="align-middle text-center">{{(leaves.find(({value}) => value === request.leaveType)).text}}</b-td>
-              <b-td class="align-middle text-center">{{request.leaveAmount}}</b-td>
+            <b-tr v-for="request in leaveRequests" :key=request.id>
+              <b-td class="align-middle text-center">{{ request.employeeId }}</b-td>
+              <b-td class="align-middle text-center">{{ request.employeeName }}</b-td>
+              <b-td class="align-middle text-center">{{ request.leaveDate.substr(0, 10) }}</b-td>
               <b-td class="align-middle text-center">
-                <div class="mt-3 text-center" v-if="request.isApproved === false">
+                {{ (leaves.find(({value}) => value === request.leaveType)).text }}
+              </b-td>
+              <b-td class="align-middle text-center">{{ request.leaveAmount }}</b-td>
+              <b-td class="align-middle text-center">
+                <div class="mt-3 text-center" v-if="request.adminDecision === false">
                   <b-button-group class="crud-operation-btn">
-                    <a :href="'/requests/' + request.id" class="btn btn-primary stretched-link">Accept</a>
-                    <a :href="'/requests/' + request.id" class="btn btn-danger stretched-link">Reject</a>
+                    <button class="btn btn-primary" @click="acceptLeaveRequest(request.id,request.employeeId)">Accept</button>
+                    <button class="btn btn-danger" @click="rejectLeaveRequest(request.id,request.employeeId)">Reject</button>
                   </b-button-group>
                 </div>
-                <div class="mt-3 text-center" v-if="request.isApproved">
-                  <b-button class="btn-success">Accepted</b-button>
+                <div class="mt-3 text-center" v-if="request.adminDecision">
+                  <b-button class="btn-success" v-if="request.isApproved">Accepted</b-button>
+                  <b-button class="btn-danger" v-if="request.isApproved == false">Rejected</b-button>
                 </div>
               </b-td>
             </b-tr>
@@ -56,13 +59,16 @@ export default {
   setup() {
     const pageTopic = ref("hSenid LMS");
     const leaveRequests = ref([]);
-    const leaves =[{text:'Annual Leave',value: 'ANNUAL_LEAVE'},{text:'Casual Leave',value: 'CASUAL_LEAVE'},{text:'Sick Leave',value: 'SICK_LEAVE'}]
+    const leaves = [{text: 'Annual Leave', value: 'ANNUAL_LEAVE'}, {
+      text: 'Casual Leave',
+      value: 'CASUAL_LEAVE'
+    }, {text: 'Sick Leave', value: 'SICK_LEAVE'}]
 
-    onMounted( ()=>{
+    onMounted(() => {
       getLeaveRequests();
     })
 
-    const getLeaveRequests = ()=> {
+    const getLeaveRequests = () => {
       employeeService.getALlLeaveRequests().then(response => {
         let data = response.data;
         // console.log(Object.values(data));
@@ -71,11 +77,40 @@ export default {
         console.log(error);
       })
     }
+
+    const acceptLeaveRequest = (leaveId,employeeId) => {
+      let acceptData = {
+        isApproved: true,
+        adminDecision: true
+      }
+      employeeService.updateLeaveRequestStatus(employeeId,leaveId,acceptData)
+          .then(response => {
+            console.log(response);
+          })
+          .catch(e => {
+            console.log(e)
+          })
+    }
+    const rejectLeaveRequest = (leaveId,employeeId) => {
+      let acceptData = {
+        isApproved: false,
+        adminDecision: true
+      }
+      employeeService.updateLeaveRequestStatus(employeeId,leaveId,acceptData)
+          .then(response => {
+            console.log(response);
+          })
+          .catch(e => {
+            console.log(e)
+          })
+    }
     return {
       pageTopic,
       leaveRequests,
       getLeaveRequests,
-      leaves
+      leaves,
+      acceptLeaveRequest,
+      rejectLeaveRequest
     };
   },
 };

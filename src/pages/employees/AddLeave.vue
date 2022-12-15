@@ -104,7 +104,8 @@ export default {
         employeeName: this.employeeName,
         leaveType: this.leaveType,
         leaveAmount: +this.leaveAmount,
-        isApproved:false
+        isApproved:false,
+        adminDecision:false
       }
       employeeService.createLeaveRequest(leaveRequestData)
           .then(response => {
