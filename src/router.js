@@ -1,40 +1,36 @@
 import { createRouter, createWebHistory } from "vue-router";
 
-import EmployeesList from "./pages/managers/EmployeesList.vue";
-import EmployeeRegistration from "./pages/managers/EmployeeRegistration.vue";
-import LoginPage from './pages/auth/LoginPage.vue';
-import NotFound from "./pages/NotFound.vue";
-import LeaveRequests from "./pages/managers/LeaveRequests.vue";
-import EmployeeLeaveHistory from "./pages/employees/EmployeeLeaveHistory.vue";
-import LeaveBalance from "./pages/employees/LeaveBalance.vue";
-import AddLeave from "./pages/employees/AddLeave.vue";
-import ProfilePage from "@/pages/ProfilePage";
-import RegisterPage from "@/pages/auth/RegisterPage";
+// import EmployeesList from "./pages/managers/EmployeesList.vue";
+// import EmployeeRegistration from "./pages/managers/EmployeeRegistration.vue";
+// import LoginPage from './pages/auth/LoginPage.vue';
+// import NotFound from "./pages/NotFound.vue";
+// import LeaveRequests from "./pages/managers/LeaveRequests.vue";
+// import EmployeeLeaveHistory from "./pages/employees/EmployeeLeaveHistory.vue";
+// import LeaveBalance from "./pages/employees/LeaveBalance.vue";
+// import AddLeave from "./pages/employees/AddLeave.vue";
+// import ProfilePage from "@/pages/ProfilePage";
+// import RegisterPage from "@/pages/auth/RegisterPage";
 
 
 
-
+// component: () => import('./user-profile/UserProfile')
 const router = createRouter({
     history: createWebHistory(),
     routes: [
         { path: '/', redirect: '/login' },
-        { path: '/login', component: LoginPage },
+        { path: '/login', component: () => import('./pages/auth/LoginPage.vue') },
         { path: '/logout', redirect: '/login' },
 
-        { path: '/signup', component: RegisterPage},
-        { path: '/profile', component: ProfilePage},
-        { path: '/register', component: EmployeeRegistration },
-        { path: '/requests', component: LeaveRequests },
-        { path: '/employees',
-            component: EmployeesList,
-            children: [
-                {path:'/:id',component: null},
-            ]
-        },
-        { path: '/leavehistory', component: EmployeeLeaveHistory },
-        { path: '/leavebalance', component: LeaveBalance },
-        { path: '/addleave', component: AddLeave },
-        { path: '/:notFound(.*)', component: NotFound },
+        { path: '/signup', component: () => import('@/pages/auth/RegisterPage')  },
+        { path: '/profile', component: () => import('@/pages/ProfilePage')},
+        { path: '/register', component: () => import('./pages/managers/EmployeeRegistration.vue') },
+        { path: '/requests', component: () => import('./pages/managers/LeaveRequests.vue')  },
+        { path: '/employees', component: () => import('./pages/managers/EmployeesList.vue')},
+        { path:'/employees/:id',component: () => import('./pages/managers/EmployeeEdit.vue')},
+        { path: '/leavehistory', component: () => import('./pages/employees/EmployeeLeaveHistory.vue') },
+        { path: '/leavebalance', component: () => import('./pages/employees/LeaveBalance.vue') },
+        { path: '/addleave', component: () => import('./pages/employees/AddLeave.vue') },
+        { path: '/:notFound(.*)', component: () => import('./pages/NotFound.vue') },
 
     ]
 

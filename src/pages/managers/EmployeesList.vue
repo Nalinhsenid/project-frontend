@@ -25,8 +25,8 @@
               <b-td class="align-middle text-center">
                 <div class="mt-3 text-center ">
                   <b-button-group class="crud-operation-btn">
-                    <a :href="'/employee/' + employee.id" class="btn btn-info">Edit</a>
-                    <a :href="'/employee/' + employee.id" class="btn btn-danger">Delete</a>
+                    <button class="btn btn-info" @click="updateEmployee(employee.id)">Update</button>
+                    <button class="btn btn-danger" @click="deleteEmployee(employee.id)">Delete</button>
                   </b-button-group>
                 </div>
               </b-td>
@@ -43,31 +43,53 @@ import { ref , onMounted} from "vue";
 import TheHeader from "@/components/TheHeader.vue";
 import employeeService from "@/services/employee.service";
 import ManagerNavBar from "@/components/ManagerNavBar";
-
+// import { useRouter} from "vue-router";
+import EmployeeService from "@/services/employee.service";
 
 export default {
-
   setup(){
 
     const employeeData = ref([]);
     const pageTopic = ref("hSenid LMS");
-
-
+    const currentEmployee =ref(null);
+    // const route = useRoute();
+    // const router =useRouter();
     onMounted( ()=>{
       getEmployees();
     })
     const getEmployees = ()=>{
       employeeService.getALlEmployees().then( response => {
         employeeData.value = response.data;
-        console.log(employeeData.value)
       }).catch( error =>{
         console.log(error);
       })
     }
-
-    const deleteEmployee =() => {
-      employeeService.deleteEmployee()
+    const getEmployee =(id) => {
+      EmployeeService.getEmployee(id)
+          .then(response => {
+            currentEmployee.value= response.data;
+            console.log(response.data);
+          })
+          .catch(e => {
+            console.log(e);
+          });
+    }
+    const updateEmployee =(id) => {
+      getEmployee(id)
+      employeeService.updateEmployee(id,currentEmployee.value)
           .then( res => {
+            console.log(res.data)
+            console.log(currentEmployee.value)
+          })
+          .catch( e => {
+            console.log(e)
+          })
+    }
+
+    const deleteEmployee =(id) => {
+      employeeService.deleteEmployee(id)
+          .then( res => {
+            // router.push('employees');
             console.log(res.data)
           })
           .catch( e => {
@@ -80,7 +102,9 @@ export default {
       pageTopic,
       employeeData,
       getEmployees,
-      deleteEmployee
+      deleteEmployee,
+      getEmployee,
+      updateEmployee
     }
   },
   components: {
