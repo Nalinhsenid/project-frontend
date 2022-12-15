@@ -20,10 +20,13 @@
               <b-td class="align-middle text-center">{{days.find(({value}) => value === leave.leaveAmount).text}}</b-td>
               <b-td class="align-middle text-center">{{(leaves.find(({value}) => value === leave.leaveType)).text}}</b-td>
               <b-td>
-                <div class="mt-3 text-center" v-if="leave.isApproved">
+                <div class="mt-3 text-center" v-if="leave.isApproved && leave.adminDecision">
                   <b-button class="btn-success">Accepted</b-button>
                 </div>
-                <div class="mt-3 text-center" v-if="leave.isApproved === false">
+                <div class="mt-3 text-center" v-if="leave.isApproved === false && leave.adminDecision">
+                  <b-button class="btn-danger">Rejected</b-button>
+                </div>
+                <div class="mt-3 text-center" v-if="leave.adminDecision === false">
                   <b-button class="btn-info">Pending</b-button>
                 </div>
               </b-td>

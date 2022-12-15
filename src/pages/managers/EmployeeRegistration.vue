@@ -15,6 +15,7 @@
               aria-describedby="input-live-help input-live-feedback"
               placeholder="Enter employee id"
               trim
+              required
           ></b-form-input>
 
           <!-- This will only be shown if the preceding input has an invalid state -->
@@ -31,6 +32,7 @@
               aria-describedby="input-live-help input-live-feedback"
               placeholder="Enter your name"
               trim
+              required
           ></b-form-input>
 
           <!-- This will only be shown if the preceding input has an invalid state -->
@@ -45,9 +47,11 @@
               id="input-live"
               v-model="employeeEmail"
               :state="true"
+              type="email"
               aria-describedby="input-live-help input-live-feedback"
               placeholder="Enter employee email"
               trim
+              required
           ></b-form-input>
         </div>
         <div role="group" class="my-4">
@@ -59,6 +63,7 @@
               aria-describedby="input-live-help input-live-feedback"
               placeholder="Enter your name"
               trim
+              required
           ></b-form-input>
         </div>
         <b-button block variant="primary" type="submit" class="mx-3">Add Employee</b-button>
@@ -115,7 +120,7 @@ export default {
       employeeService.createEmployee(employeeData)
           .then(response => {
             console.log(response);
-            setInitialFormData();
+
           })
           .catch(e => {
             console.log(e)

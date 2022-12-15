@@ -43,6 +43,14 @@ class EmployeeService {
             { headers: authHeader()});
     }
 
+    updateLeaveRequestStatus(employeeId,leaveId,data){
+        return httpCommon.patch(
+            `/leaves/${employeeId}/${leaveId}`,
+            data,
+            { headers: authHeader()}
+        )
+    }
+
 
 
 }
