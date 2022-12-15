@@ -63,8 +63,6 @@
         </div>
         <b-button block variant="primary" type="submit" class="mx-3">Add Employee</b-button>
         <b-button type="reset" variant="danger">Reset</b-button>
-
-        <!--      <b-button block class="mx-auto align-items-center justify-content-center" variant="outline-success" type="submit">Add Employee</b-button>-->
       </div>
 
     </form>
@@ -76,7 +74,6 @@
 import {computed, ref} from "vue";
 import TheHeader from "@/components/TheHeader.vue";
 import ManagerNavBar from "@/components/ManagerNavBar";
-import employeeService from "@/services/employee.service";
 
 export default {
   components: {
@@ -105,23 +102,6 @@ export default {
       employeeEmail.value='';
     }
 
-    const addEmployee = () => {
-      let employeeData = {
-        id: employeeId.value,
-        name: employeeName.value,
-        email: employeeEmail.value,
-        position: employeePosition.value
-      }
-      employeeService.createEmployee(employeeData)
-          .then(response => {
-            console.log(response);
-            setInitialFormData();
-          })
-          .catch(e => {
-            console.log(e)
-          })
-
-    }
 
     return {
       pageTopic,
@@ -130,7 +110,6 @@ export default {
       employeeId,
       employeeIdState,
       employeePosition,
-      addEmployee,
       employeeEmail,
       setInitialFormData
     };

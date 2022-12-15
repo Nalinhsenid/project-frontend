@@ -88,7 +88,6 @@ export default {
     if(this.currentUser.roles[0] === 'ROLE_ADMIN'){
       this.isRoleAdmin = true;
     }
-    console.log(this.currentUser);
 
   },
   setup(){

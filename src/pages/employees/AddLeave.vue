@@ -33,7 +33,7 @@
           </b-form-group>
           <div>
             <label for="dateOfLeave" class="pb-2">Choose a date</label>
-            <input id="dateOfLeave" type="date" class="form-control" v-model="leaveDateValue" :min="min">
+            <b-form-input id="dateOfLeave" type="date" class="form-control" v-model="leaveDateValue" :min="min"></b-form-input>
           </div>
         </b-form-group>
         <b-form-group id="input-group-3" label="Leave Type :" label-for="input-3 "
@@ -90,6 +90,13 @@ export default {
     console.log(this.min);
   },
   methods: {
+    setInitialFormData(){
+      this.employeeId ='';
+      this.employeeName = '';
+      this.leaveDateValue ='';
+      this.leaveType=null;
+      this.leaveAmount =0;
+    },
     addLeaveRequest() {
       let leaveRequestData = {
         employeeId: this.employeeId,
@@ -102,6 +109,7 @@ export default {
       employeeService.createLeaveRequest(leaveRequestData)
           .then(response => {
             console.log(response);
+            this.setInitialFormData()
           })
           .catch(e => {
             console.log(e)

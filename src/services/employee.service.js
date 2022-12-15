@@ -16,6 +16,10 @@ class EmployeeService {
         return httpCommon.get(`/leaves/approved/${id}`,{ headers: authHeader() });
     }
 
+    getEmployee(id) {
+        return httpCommon.get(`/employees/${id}`,{ headers: authHeader() });
+    }
+
 
     createEmployee(data) {
         return httpCommon.post(
@@ -24,9 +28,9 @@ class EmployeeService {
             { headers: authHeader()});
     }
 
-    // updateEmployee(id, data) {
-    //     return httpCommon.put(`/tutorials/${id}`, data,{ headers: authHeader() });
-    // }
+    updateEmployee(id, data) {
+        return httpCommon.put(`/employees/${id}`, data,{ headers: authHeader() });
+    }
 
     deleteEmployee(id) {
         return httpCommon.delete(`/employees/${id}`,{ headers: authHeader() });
